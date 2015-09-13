@@ -1,0 +1,67 @@
+<configuration>
+    <property name="LOGS_LOCATION" value="/opt/apps/weblogs/RetirePastDueLogs" />
+
+    <appender name="RPDD_APP_LOG" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${LOGS_LOCATION}/RetirePastDueDatabase.log</file>
+        <append>true</append>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${LOGS_LOCATION}/RetirePastDue.%d{yyyy-MM-dd}.log</fileNamePattern>
+            <timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+            </timeBasedFileNamingAndTriggeringPolicy>
+            <maxHistory>30</maxHistory>
+        </rollingPolicy>
+        <encoder>
+            <charset>UTF-8</charset>
+            <pattern>%date %-5level %8.-8X{loggedUser} %8.-8X{requestId} [%thread] %logger{36} - %message%n</pattern>
+        </encoder>
+    </appender>
+
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>%date %-5level %8.-8X{loggedUser} %8.-8X{requestId} [%thread] %logger{36} - %message%n</pattern>
+        </encoder>
+    </appender>
+
+    <!--<logger name="org.springframework" level="WARN" />-->
+    <!--<logger name="org.springframework.transaction" level="WARN" />-->
+    <!--<logger name="org.springframework.web.servlet.mvc" level="WARN" />-->
+    <!--<logger name="net.sf.ehcache" level="TRACE" />-->
+
+
+    <!--<logger name="org.springframework.web.servlet.mvc.method.annotation">-->
+        <!--<level value="TRACE"/>-->
+        <!--<appender-ref ref="STDOUT"/>-->
+        <!--<appender-ref ref="RPDD_APP_LOG"/>-->
+    <!--</logger>-->
+
+    <logger name="org.hibernate.SQL">
+        <level value="TRACE"/>
+        <appender-ref ref="STDOUT"/>
+        <appender-ref ref="RPDD_APP_LOG"/>
+    </logger>
+
+    <logger name="org.hibernate.type">
+        <level value="INFO"/>
+        <appender-ref ref="STDOUT"/>
+        <appender-ref ref="RPDD_APP_LOG"/>
+    </logger>
+
+    <logger name="com.bbh.star">
+        <level value="DEBUG"/>
+    </logger>
+
+    <!--<logger name="org.springframework.cache">-->
+        <!--<level value="TRACE"/>-->
+    <!--</logger>-->
+
+    <!--<logger name="net.sf.ehcache">-->
+        <!--<level value="TRACE"/>-->
+    <!--</logger>-->
+
+
+    <root level="INFO">
+        <appender-ref ref="STDOUT"/>
+        <appender-ref ref="RPDD_APP_LOG"/>
+    </root>
+
+</configuration>

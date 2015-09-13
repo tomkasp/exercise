@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Register</title>
+    <script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script>
+    <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+    <script type="text/javascript"
+            src="https://raw.githubusercontent.com/marioizquierdo/jquery.serializeJSON/master/jquery.serializejson.js"></script>
+</head>
+<body>
+<form id="registerForm">
+    Username: <input type="text" name="username"/>
+    <br>
+    Password: <input type="password" name="password"/>
+    <br>
+    <input id="submit" type="button" value="Submit"/>
+</form>
+</body>
+<script>
+    var request
+
+
+    $('#submit').click(function () {
+        request = $.ajax({
+            url: '/users',
+            type: 'post',
+            contentType: 'application/json',
+            data: JSON.stringify($("#registerForm").serializeJSON()),
+            success: function (data) {
+                alert('User has been registered');
+            },
+            error: (function (jqXHR) {
+                alert(jqXHR.responseText);
+            })
+        });
+    });
+
+</script>
+</html>
